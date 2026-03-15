@@ -1,0 +1,106 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: fedrap-fitness-recommendation
+
+  # HTTP编码配置
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  # 数据库配置 (H2内存数据库)
+  datasource:
+    url: jdbc:h2:file:./data/fedrapdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      connection-test-query: SELECT 1 
+    
+  # 如果使用MySQL，取消注释以下配置
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/fitness_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf8
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+  #   username: root
+  #   password: your_password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # Jackson配置
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+    generator:
+      escape-non-ascii: false
+
+  # SQL初始化编码
+  sql:
+    init:
+      encoding: UTF-8
+      mode: always
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:change-this-secret-before-production}
+  expiration: 604800000 # 7天 (毫秒)
+  header: Authorization
+  prefix: Bearer 
+
+# 推荐系统配置
+recommendation:
+  model:
+    latent-dim: 32
+    num-exercises: 200
+  personalization:
+    enabled: true
+    weight: 0.3
+
+# FedRAP模型配置
+fedrap:
+  model:
+    enabled: true  # 是否启用训练好的模型
+    python-path: ${FEDRAP_PYTHON:python}  # Python解释器路径，默认使用系统python
+    script-path: model_inference.py  # 推理脚本相对路径
+
+# 日志配置
+logging:
+  level:
+    com.fedrap: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+
+# CORS配置
+cors:
+  allowed-origins: http://localhost:5173,http://localhost:3000
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: '*'
+  allow-credentials: true

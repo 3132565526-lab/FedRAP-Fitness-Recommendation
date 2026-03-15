@@ -1,0 +1,52 @@
+# ====================
+# Backend (Java / Spring Boot)
+# ====================
+backend-java/target/
+backend-java/data/
+*.jar
+*.war
+.mvn/wrapper/maven-wrapper.jar
+
+# ====================
+# Frontend (Vue / Node)
+# ====================
+frontend-vue/node_modules/
+frontend-vue/dist/
+frontend-vue/dist-ssr/
+frontend-vue/.env.local
+frontend-vue/.env.*.local
+frontend-vue/npm-debug.log*
+frontend-vue/yarn-debug.log*
+frontend-vue/yarn-error.log*
+
+# ====================
+# Python / Machine Learning
+# ====================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ====================
+# IDE / IDE Settings
+# ====================
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# ====================
+# OS generated files
+# ====================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
